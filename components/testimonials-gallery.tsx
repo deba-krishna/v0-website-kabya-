@@ -28,10 +28,9 @@ export function TestimonialsGallery() {
 
         if (error) throw error
 
-        console.log("[v0] Fetched testimonials from Supabase:", data.length)
         setTestimonials(data as Testimonial[])
       } catch (error) {
-        console.error("[v0] Error fetching testimonials:", error)
+        console.error("Error fetching testimonials:", error)
       } finally {
         setLoading(false)
       }
@@ -64,29 +63,108 @@ export function TestimonialsGallery() {
     )
   }
 
+  const midpoint = Math.ceil(testimonials.length / 2)
+  const topRowTestimonials = testimonials.slice(0, midpoint)
+  const bottomRowTestimonials = testimonials.slice(midpoint)
+
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            onClick={() => setSelectedImage(testimonial.image_url)}
-            className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group bg-card/50 border border-border/40 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1"
-          >
-            <Image
-              src={testimonial.image_url || "/placeholder.svg"}
-              alt="Customer testimonial"
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-white text-sm font-medium">Click to view full size</p>
+      <div className="space-y-8">
+        {/* Top Row - Scrolls Right to Left */}
+        <div className="relative overflow-hidden">
+          <div className="flex gap-6 animate-marquee-left hover:[animation-play-state:paused]">
+            {/* First set */}
+            {topRowTestimonials.map((testimonial) => (
+              <div
+                key={`top-1-${testimonial.id}`}
+                onClick={() => setSelectedImage(testimonial.image_url)}
+                className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group bg-card/50 border border-border/40 transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:scale-105"
+              >
+                <Image
+                  src={testimonial.image_url || "/placeholder.svg"}
+                  alt="Customer testimonial"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 380px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white text-sm font-medium">Click to view</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {topRowTestimonials.map((testimonial) => (
+              <div
+                key={`top-2-${testimonial.id}`}
+                onClick={() => setSelectedImage(testimonial.image_url)}
+                className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group bg-card/50 border border-border/40 transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:scale-105"
+              >
+                <Image
+                  src={testimonial.image_url || "/placeholder.svg"}
+                  alt="Customer testimonial"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 380px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white text-sm font-medium">Click to view</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Bottom Row - Scrolls Left to Right */}
+        <div className="relative overflow-hidden">
+          <div className="flex gap-6 animate-marquee-right hover:[animation-play-state:paused]">
+            {/* First set */}
+            {bottomRowTestimonials.map((testimonial) => (
+              <div
+                key={`bottom-1-${testimonial.id}`}
+                onClick={() => setSelectedImage(testimonial.image_url)}
+                className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group bg-card/50 border border-border/40 transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:scale-105"
+              >
+                <Image
+                  src={testimonial.image_url || "/placeholder.svg"}
+                  alt="Customer testimonial"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 380px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white text-sm font-medium">Click to view</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {bottomRowTestimonials.map((testimonial) => (
+              <div
+                key={`bottom-2-${testimonial.id}`}
+                onClick={() => setSelectedImage(testimonial.image_url)}
+                className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group bg-card/50 border border-border/40 transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:scale-105"
+              >
+                <Image
+                  src={testimonial.image_url || "/placeholder.svg"}
+                  alt="Customer testimonial"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 380px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white text-sm font-medium">Click to view</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Zoom Modal */}
@@ -111,6 +189,34 @@ export function TestimonialsGallery() {
           )}
         </DialogContent>
       </Dialog>
+
+      <style jsx global>{`
+        @keyframes marquee-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes marquee-right {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        .animate-marquee-left {
+          animation: marquee-left 40s linear infinite;
+        }
+
+        .animate-marquee-right {
+          animation: marquee-right 40s linear infinite;
+        }
+      `}</style>
     </>
   )
 }
