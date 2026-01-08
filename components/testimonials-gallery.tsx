@@ -210,11 +210,11 @@ export function TestimonialsGallery() {
         }
 
         .animate-marquee-left {
-          animation: marquee-left 40s linear infinite;
+          animation: marquee-left 8s linear infinite;
         }
 
         .animate-marquee-right {
-          animation: marquee-right 40s linear infinite;
+          animation: marquee-right 8s linear infinite;
         }
       `}</style>
     </>
