@@ -7,16 +7,15 @@ import { GSAPWrapper } from "@/components/gsap-wrapper"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Sparkles, Upload, Zap, Heart, Server, MousePointerClick, CreditCard, QrCode } from "lucide-react"
 import Link from "next/link"
-import { createClient } from "@/lib/supabase/server"
+import { createServerClient } from "@/lib/supabase/server"
 
 export default async function HomePage() {
-  const supabase = await createClient()
+  const supabase = await createServerClient()
   const { data: products } = await supabase
     .from("products")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(6)
-
   const bestSelling = products || []
 
   return (
@@ -126,7 +125,7 @@ export default async function HomePage() {
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4">Best Selling</h2>
-              <p className="text-muted-foreground text-lg">{"Most loved by our customers"}</p>
+              <p className="text-muted-foreground text-lg">Most loved by our customers</p>
             </div>
             <Link href="/shop">
               <Button variant="outline" className="hidden md:inline-flex bg-transparent">

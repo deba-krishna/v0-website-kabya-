@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -20,8 +19,8 @@ export default function ReviewPage() {
   const [activeTab, setActiveTab] = useState<TabType>("product")
   const [submitting, setSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [redirectUrl, setRedirectUrl] = useState("/review-success")
 
-  // Product Review State
   const [productRating, setProductRating] = useState(0)
   const [productHoverRating, setProductHoverRating] = useState(0)
   const [selectedTemplate, setSelectedTemplate] = useState("")
@@ -32,7 +31,6 @@ export default function ReviewPage() {
   const [productContact, setProductContact] = useState("")
   const [screenshot, setScreenshot] = useState<File | null>(null)
 
-  // Website Feedback State
   const [websiteRating, setWebsiteRating] = useState(0)
   const [websiteHoverRating, setWebsiteHoverRating] = useState(0)
   const [likedFeatures, setLikedFeatures] = useState<string[]>([])
@@ -60,6 +58,7 @@ export default function ReviewPage() {
       alert("Please provide a rating before submitting.")
       return
     }
+    console.log("[v0] Product form submitting with rating:", productRating)
     setSubmitting(true)
     // Form will submit naturally to Formspark
   }
@@ -70,6 +69,7 @@ export default function ReviewPage() {
       alert("Please provide a rating before submitting.")
       return
     }
+    console.log("[v0] Website form submitting with rating:", websiteRating)
     setSubmitting(true)
     // Form will submit naturally to Formspark
   }
@@ -104,6 +104,14 @@ export default function ReviewPage() {
       ))}
     </div>
   )
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const fullUrl = `${window.location.protocol}//${window.location.host}/review-success`
+      setRedirectUrl(fullUrl)
+      console.log("[v0] Redirect URL set to:", fullUrl)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen">
@@ -158,11 +166,7 @@ export default function ReviewPage() {
                 method="POST"
                 className="space-y-6"
               >
-                <input
-                  type="hidden"
-                  name="_redirect"
-                  value={typeof window !== "undefined" ? `${window.location.origin}/review-success` : "/review-success"}
-                />
+                <input type="hidden" name="_redirect" value={redirectUrl} />
                 <input type="hidden" name="_append" value="false" />
 
                 <div className="space-y-3">
@@ -328,11 +332,7 @@ export default function ReviewPage() {
                 method="POST"
                 className="space-y-6"
               >
-                <input
-                  type="hidden"
-                  name="_redirect"
-                  value={typeof window !== "undefined" ? `${window.location.origin}/review-success` : "/review-success"}
-                />
+                <input type="hidden" name="_redirect" value={redirectUrl} />
                 <input type="hidden" name="_append" value="false" />
 
                 <div className="space-y-3">

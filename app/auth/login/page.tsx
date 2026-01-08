@@ -1,15 +1,14 @@
 "use client"
 
 import type React from "react"
-
-import { createClient } from "@/lib/supabase/client"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { createBrowserClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -17,23 +16,27 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const supabase = createBrowserClient()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    const supabase = createClient()
     setIsLoading(true)
     setError(null)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
-      if (error) throw error
+
+      if (signInError) throw signInError
+
+      console.log("[v0] Supabase login successful:", data.user?.email)
       router.push("/admin-deba")
       router.refresh()
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred")
+    } catch (error: any) {
+      console.error("[v0] Supabase login error:", error)
+      setError(error.message || "Invalid email or password")
     } finally {
       setIsLoading(false)
     }
@@ -73,7 +76,7 @@ export default function LoginPage() {
                     />
                   </div>
                   {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Button type="submit" className="w-full purple-glow" disabled={isLoading}>
                     {isLoading ? "Logging in..." : "Login"}
                   </Button>
                 </div>

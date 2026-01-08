@@ -6,7 +6,7 @@ import { ProductCard } from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { GSAPWrapper } from "@/components/gsap-wrapper"
 import { useState, useEffect } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { createBrowserClient } from "@/lib/supabase/client"
 import type { Product } from "@/lib/products"
 
 type Category =
@@ -25,22 +25,27 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All")
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+  const supabase = createBrowserClient()
 
   useEffect(() => {
     async function fetchProducts() {
-      const supabase = createClient()
-      const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false })
+      try {
+        console.log("[v0] Fetching products from Supabase...")
+        const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false })
 
-      if (error) {
-        console.error("Error fetching products:", error)
-      } else {
-        setProducts(data || [])
+        if (error) throw error
+
+        console.log("[v0] Fetched products:", data.length)
+        setProducts(data as Product[])
+      } catch (error) {
+        console.error("[v0] Error fetching products:", error)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     fetchProducts()
-  }, [])
+  }, [supabase])
 
   const filteredProducts =
     selectedCategory === "All" ? products : products.filter((p) => p.category === selectedCategory)
@@ -65,7 +70,7 @@ export default function ShopPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Shop Templates</h1>
-          <p className="text-muted-foreground text-lg">{"Choose the perfect template for your special moment"}</p>
+          <p className="text-muted-foreground text-lg">Choose the perfect template for your special moment</p>
         </div>
 
         <GSAPWrapper animation="stagger" className="mb-12">
@@ -104,7 +109,7 @@ export default function ShopPage() {
               <div className="text-center py-20">
                 <p className="text-xl text-muted-foreground mb-4">No products found in this category.</p>
                 <p className="text-sm text-muted-foreground">
-                  {"Try selecting a different category or check back soon for new templates!"}
+                  Try selecting a different category or check back soon for new templates
                 </p>
               </div>
             )}

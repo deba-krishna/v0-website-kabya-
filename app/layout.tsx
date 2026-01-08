@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { CartProvider } from "@/contexts/cart-context"
 import { GalaxyBackground } from "@/components/galaxy-background"
+// import { TawkToChat } from "@/components/tawk-to-chat"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })

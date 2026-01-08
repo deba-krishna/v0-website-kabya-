@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { createBrowserClient } from "@/lib/supabase/client"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { X } from "lucide-react"
 import Image from "next/image"
@@ -16,22 +16,29 @@ export function TestimonialsGallery() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const supabase = createBrowserClient()
 
   useEffect(() => {
     async function fetchTestimonials() {
-      const supabase = createClient()
-      const { data, error } = await supabase.from("testimonials").select("*").order("created_at", { ascending: false })
+      try {
+        const { data, error } = await supabase
+          .from("testimonials")
+          .select("*")
+          .order("created_at", { ascending: false })
 
-      if (error) {
+        if (error) throw error
+
+        console.log("[v0] Fetched testimonials from Supabase:", data.length)
+        setTestimonials(data as Testimonial[])
+      } catch (error) {
         console.error("[v0] Error fetching testimonials:", error)
-      } else {
-        setTestimonials(data || [])
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     fetchTestimonials()
-  }, [])
+  }, [supabase])
 
   if (loading) {
     return (
