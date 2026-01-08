@@ -18,6 +18,7 @@ interface Testimonial {
   id: string
   image_url: string
   created_at: string
+  customer_name: string
 }
 
 function generateSlug(name: string): string {
@@ -245,6 +246,7 @@ export default function AdminPage() {
 
       const { error: insertError } = await supabase.from("testimonials").insert({
         image_url: publicUrl,
+        customer_name: "Verified Customer",
       })
 
       if (insertError) throw insertError
