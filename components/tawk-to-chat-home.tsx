@@ -7,14 +7,16 @@ export function TawkToChatHome() {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname !== "/") {
-      return
-    }
-
     if (typeof window !== "undefined" && window.location.hostname.includes("v0.app")) {
       return
     }
 
+    // Only run on homepage
+    if (pathname !== "/") {
+      return
+    }
+
+    // Skip if already loaded
     if ((window as any).Tawk_API) {
       return
     }

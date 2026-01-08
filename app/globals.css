@@ -138,7 +138,7 @@
 }
 
 /* Added animated horizontal scroll styles for How It Works section */
-/* Reduced card size and sped up animation to 1.5s */
+/* Slowed down animation to 6 seconds for calmer, easier-to-follow motion */
 .step-scroll-container {
   width: 100%;
   overflow: hidden;
@@ -148,7 +148,7 @@
 .step-scroll-track {
   display: flex;
   gap: 1.5rem;
-  animation: scroll 1.5s linear infinite;
+  animation: scroll 6s linear infinite;
   width: max-content;
 }
 
@@ -219,7 +219,7 @@
   }
 
   .step-scroll-track {
-    animation-duration: 1.2s;
+    animation-duration: 5s;
   }
 }
 
