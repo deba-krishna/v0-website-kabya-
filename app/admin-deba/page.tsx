@@ -20,6 +20,15 @@ interface Testimonial {
   created_at: string
 }
 
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase() // Convert to lowercase
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/--+/g, "-") // Replace multiple hyphens with single hyphen
+    .trim() // Remove leading/trailing whitespace
+}
+
 export default function AdminPage() {
   const router = useRouter()
   const supabase = createBrowserClient()
@@ -160,6 +169,7 @@ export default function AdminPage() {
 
       const productData = {
         name,
+        slug: generateSlug(name),
         price: Number.parseFloat(price),
         category,
         description,
