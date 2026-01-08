@@ -1,15 +1,30 @@
 "use client"
 
+import type React from "react"
+
 import Link from "next/link"
 import { Search, ShoppingCart, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/contexts/cart-context"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function Navbar() {
   const { getTotalItems } = useCart()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const router = useRouter()
   const totalItems = getTotalItems()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchOpen(false)
+      setSearchQuery("")
+    }
+  }
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -39,7 +54,7 @@ export function Navbar() {
             variant="ghost"
             size="icon"
             className="text-foreground/80 hover:text-primary"
-            onClick={() => console.log("Search clicked")}
+            onClick={() => setSearchOpen(!searchOpen)}
           >
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
@@ -68,6 +83,26 @@ export function Navbar() {
           </Button>
         </div>
       </div>
+
+      {searchOpen && (
+        <div className="border-t border-border/40 bg-background/98 backdrop-blur">
+          <div className="container mx-auto px-4 py-3">
+            <form onSubmit={handleSearch} className="flex items-center gap-2">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search templates by category or name..."
+                className="flex-1 h-10 px-4 rounded-lg bg-secondary text-foreground border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary"
+                autoFocus
+              />
+              <Button type="submit" size="sm" className="bg-primary hover:bg-primary/90">
+                Search
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {menuOpen && (

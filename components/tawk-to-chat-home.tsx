@@ -11,6 +11,10 @@ export function TawkToChatHome() {
       return
     }
 
+    if (typeof window !== "undefined" && window.location.hostname.includes("v0.app")) {
+      return
+    }
+
     if ((window as any).Tawk_API) {
       return
     }

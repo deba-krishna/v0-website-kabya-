@@ -138,6 +138,7 @@
 }
 
 /* Added animated horizontal scroll styles for How It Works section */
+/* Reduced card size and sped up animation to 1.5s */
 .step-scroll-container {
   width: 100%;
   overflow: hidden;
@@ -147,7 +148,7 @@
 .step-scroll-track {
   display: flex;
   gap: 1.5rem;
-  animation: scroll 20s linear infinite;
+  animation: scroll 1.5s linear infinite;
   width: max-content;
 }
 
@@ -157,14 +158,14 @@
 }
 
 .step-card-wrapper {
-  min-width: 280px;
+  min-width: 200px;
   background: white;
-  border-radius: 1.5rem;
-  padding: 2.5rem 2rem;
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(139, 92, 246, 0.1);
   transition: all 0.3s ease;
@@ -177,18 +178,18 @@
 }
 
 .step-icon {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   color: #8b5cf6;
   stroke-width: 1.5;
 }
 
 .step-text {
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #0f0f0f;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 /* Smooth infinite scroll animation */
@@ -204,21 +205,21 @@
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .step-card-wrapper {
-    min-width: 240px;
-    padding: 2rem 1.5rem;
+    min-width: 180px;
+    padding: 1.5rem 1.25rem;
   }
 
   .step-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .step-text {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   .step-scroll-track {
-    animation-duration: 15s;
+    animation-duration: 1.2s;
   }
 }
 
