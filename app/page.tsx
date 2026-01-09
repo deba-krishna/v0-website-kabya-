@@ -5,7 +5,17 @@ import { ProductCard } from "@/components/product-card"
 import { TestimonialsGallery } from "@/components/testimonials-gallery"
 import { GSAPWrapper } from "@/components/gsap-wrapper"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Sparkles, Upload, Zap, Heart, Server, MousePointerClick, CreditCard, QrCode } from "lucide-react"
+import {
+  Sparkles,
+  Upload,
+  Server,
+  MousePointerClick,
+  CreditCard,
+  QrCode,
+  ArrowRight,
+  Palette,
+  Share2,
+} from "lucide-react"
 import Link from "next/link"
 import { createServerClient } from "@/lib/supabase/server"
 
@@ -40,10 +50,10 @@ export default async function HomePage() {
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">#BirthdayWish</span>
-              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">#SmartURL</span>
-              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">#InstantShare</span>
-              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">#MemoriesForever</span>
+              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">😍 No Coding Needed</span>
+              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">⚡ Shareable QR / Link</span>
+              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">🌐 Free Hosting</span>
+              <span className="px-4 py-2 rounded-full bg-secondary text-sm font-medium">💬 24/7 Support</span>
             </div>
 
             <GSAPWrapper animation="magnetic" className="pt-6 inline-block">
@@ -52,8 +62,8 @@ export default async function HomePage() {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 px-8 text-lg font-semibold purple-glow"
                 >
-                  Pick Your Template
-                  <Sparkles className="ml-2 h-5 w-5" />
+                  Shop Here
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </GSAPWrapper>
@@ -154,8 +164,7 @@ export default async function HomePage() {
       <section className="container mx-auto px-4 py-20">
         <GSAPWrapper animation="fadeUp">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Why Choose Deba?</h2>
-            <p className="text-muted-foreground text-lg">{"We make special moments unforgettable"}</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Why Choose Us?</h2>
           </div>
         </GSAPWrapper>
 
@@ -163,27 +172,34 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
-                <Heart className="h-8 w-8 text-primary" />
+                <Palette className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">Beautifully Crafted</h3>
-              <p className="text-muted-foreground">{"Every website is designed with love and attention to detail"}</p>
+              <h3 className="text-xl font-semibold">Beautifully Crafted Websites</h3>
+              <p className="text-muted-foreground">
+                Every page is custom-designed using your photos, story, and details — not generic templates. Your
+                website feels emotional, personal, and truly meaningful.
+              </p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
-                <Zap className="h-8 w-8 text-primary" />
+                <Share2 className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">Instant Sharing</h3>
-              <p className="text-muted-foreground">{"Share your website link instantly across all platforms"}</p>
+              <h3 className="text-xl font-semibold">Instant Sharing — Link + QR Code</h3>
+              <p className="text-muted-foreground">
+                You receive a ready-to-share link and a custom QR code, so your special person can simply scan and open
+                it instantly. No apps, no logins — just magic ✨
+              </p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
                 <Server className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">Hosting Managed</h3>
+              <h3 className="text-xl font-semibold">Hosting Managed For You</h3>
               <p className="text-muted-foreground">
-                {"We handle all the technical stuff. You just share and celebrate"}
+                No tools, no learning curve, no stress. Simply share your content, and everything is created and
+                delivered for you — professionally and on time.
               </p>
             </div>
           </div>
@@ -196,7 +212,9 @@ export default async function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Customer Love</h2>
             <p className="text-muted-foreground text-lg">
-              {"Real messages from real customers who loved their websites"}
+              {
+                "Every message below comes from a real customer who trusted us with their special moments. After receiving their website, they shared their honest experience — and those words mean everything to us."
+              }
             </p>
           </div>
         </GSAPWrapper>
